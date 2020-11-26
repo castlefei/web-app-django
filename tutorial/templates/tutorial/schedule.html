@@ -1,0 +1,58 @@
+{% extends "tutorial/layout.html" %}
+{% block content %}
+
+    <p>This is schedule page.</p>
+{#    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}#}
+{#    {% for time in suggestions_times %}#}
+{#     <p><a href="{% url 'findmeetingtime' %}" class="btn btn-primary btn-large">{{ time.start|date:'SHORT_DATETIME_FORMAT'}} - {{ time.end|date:'SHORT_DATETIME_FORMAT'  }}</a>#}
+{#     </p>#}
+{##}
+{#    {% endfor %}#}
+    {% if suggestion == '0' %}
+        {% if replaceable == '1' %}
+            <p>There is no suitable free time slot for the meeting. You could replace previous one instead.</p>
+
+            <p>start time: {{ old_event_time.start }}</p>
+            <p>end time: {{ old_event_time.end }}</p>
+
+            <p>If you want to replace the previous event, select a new time slot for the previous event.</p>
+            {#            the url need to consider again and change!!!#}
+            <form action="{% url 'mailtoBC' %}" method="post">
+            {% csrf_token %}
+                {% for time in old_suggestions_times %}
+                 <p>
+                    <button name="timeChoice_old" value="{{ time.start}} - {{ time.end }}">
+                    {{ time.start}} - {{ time.end }}</button>
+                </p>
+
+                {% endfor %}
+            </form>
+
+
+
+        {% elif replaceable == '0' %}
+            <p>There is no suitable time slot for the meeting. Please choose different preference</p>
+            <p>reason: {{ reason }}</p>
+
+        {% endif %}
+
+    {% elif suggestion == '1' %}
+        <p>There are some time slot suggestions for the meeting</p>
+
+        <form action="{% url 'mail' %}" method="post">
+            {% csrf_token %}
+            {% for time in suggestions_times %}
+                <p>
+                    <button name="timeChoice" value="{{ time.start}} - {{ time.end }}">
+                    {{ time.start}} - {{ time.end }}</button>
+                </p>
+
+            {% endfor %}
+        </form>
+
+    {% endif %}
+
+
+
+{% endblock %}
+

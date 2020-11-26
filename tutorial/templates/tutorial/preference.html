@@ -1,0 +1,53 @@
+{% extends "tutorial/layout.html" %}
+{% block content %}
+    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+<form action="{% url 'findmeetingtime' %}" method="post">
+{% csrf_token %}
+
+    <strong>1. When would you like to have the meeting?</strong><br>
+    <input type="radio" name="when" id="choice1-1" value="1">
+    <label for="choice1-1">in one day</label><br>
+    <input type="radio" name="when" id="choice1-2" value="3">
+    <label for="choice1-2">in three days</label><br>
+    <input type="radio" name="when" id="choice1-3" value="7">
+    <label for="choice1-3">in seven days</label><br>
+
+    <strong>2. How long will the meeting be?</strong><br>
+{#    <strong>Please type in the duration in 'xxHxxM' format. For example, 2 hours and 30 minutes would be '2H30M'. </strong><br>#}
+{#    <input type="text" name="123"><br>#}
+    <input type="radio" name="howlong" id="choice2-1" value="PT1H">
+    <label for="choice2-1">one hour</label><br>
+    <input type="radio" name="howlong" id="choice2-2" value="PT2H">
+    <label for="choice2-2">two hours</label><br>
+    <input type="radio" name="howlong" id="choice2-3" value="PT3H">
+    <label for="choice2-3">three hours</label><br>
+
+    <strong>3. What is the type of the meeting?</strong><br>
+    <input type="radio" name="type" id="choice3-1" value="work">
+    <label for="choice3-1">work. I want to have it at my work hours.</label><br>
+    <input type="radio" name="type" id="choice3-2" value="personal">
+    <label for="choice3-2">personal. I want to have it at my work hours or weekend.</label><br>
+    <input type="radio" name="type" id="choice3-3" value="unrestricted">
+    <label for="choice3-3">urgent. I want to have it at any time.</label><br>
+
+    <strong>4. Is the meeting movable when decided?</strong><br>
+    <input type="radio" name="movable" id="choice4-1" value="1">
+    <label for="choice4-1">yes, it can move to other suitable time slots</label><br>
+    <input type="radio" name="movable" id="choice4-2" value="0">
+    <label for="choice4-2">no, it is fixed when decided</label><br>
+
+    <strong>5. Please type in the priority of the meeting(from 0 to 10)</strong><br>
+    <input type="text" name="priority"><br>
+
+    <strong>6. Please type in the email address of invitee</strong><br>
+    <input type="text" name="mail-addr"><br>
+
+    <input type="submit" value="submit">
+</form>
+
+{#    <a href="{% url 'findmeetingtime' %}" class="btn btn-primary btn-large">Click here to find meeting time</a>#}
+{#    <a href="{% url 'getfreeorbusy' %}" class="btn btn-primary btn-large">Click here to get free and busy time</a>#}
+{#    <a href="{% url 'getfreeorbusy' %}" class="btn btn-primary btn-large">Click here to get free and busy time and google events</a>#}
+
+{% endblock %}
+

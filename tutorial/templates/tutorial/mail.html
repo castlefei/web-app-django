@@ -1,0 +1,32 @@
+{% extends "tutorial/layout.html" %}
+{% block content %}
+
+    <p>This is mail page.</p>
+    {% if status_code %}
+        {% if status_code == 202 %}
+            The meeting request email has been sent successfully.
+
+        {% else %}
+            There is some errors when sending request email.
+        {% endif %}
+    {% endif %}
+
+    {% if status_code_B %}
+        {% if status_code_B == 202 %}
+        The meeting request email has been sent to B successfully.
+
+        {% else %}
+            There is some errors when sending request email to B.
+        {% endif %}
+    {% endif %}
+
+    {% if status_code_C %}
+        {% if status_code_C == 202 %}
+        The meeting request email has been sent to C successfully.
+
+        {% else %}
+            There is some errors when sending request email to C.
+        {% endif %}
+    {% endif %}
+
+{% endblock %}
